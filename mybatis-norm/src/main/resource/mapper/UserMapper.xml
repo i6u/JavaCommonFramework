@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.witt.mapper.UserMapper">
+
+    <select id="queryAll" resultType="User">
+		select * from user
+	</select>
+
+    <select id="findUserById" resultType="User" parameterType="int">
+		select * from user where id=#{id}
+	</select>
+
+    <select id="findUserByName" parameterType="String" resultType="User">
+		select * from user where username like '%${value}%'
+	</select>
+
+    <!-- 插入后获取主键的两种方法-->
+
+    <!--<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">-->
+    <!--insert into user(username,password,sex,nick_name,register_date)-->
+    <!--value(#{username},#{password},#{sex},#{nick_name},#{register_date})-->
+    <!--</insert>-->
+
+    <insert id="insertUser" parameterType="User">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user(username,password,sex,nick_name,register_date)
+        value(#{username},#{password},#{sex},#{nick_name},#{register_date})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from user where  id = #{value}
+    </delete>
+
+    <update id="updateUserById" parameterType="User">
+        update user set
+        username=#{username},password=#{password},sex=#{sex},nick_name=#{nick_name},register_date=#{register_date}
+        where id=#{id};
+    </update>
+
+    <!-- sql 片段 -->
+    <sql id="userWhere">
+        <if test="sex!=null">
+            and sex = #{sex}
+        </if>
+        <if test="password != null">
+            and password = #{password}
+        </if>
+
+        <if test="username!=null">
+            and username like '%${username}%'
+        </if>
+    </sql>
+    <select id="findUserBySexAndName" parameterType="hashmap" resultType="User">
+        select * from user
+        <where>
+            <include refid="userWhere"/>
+        </where>
+    </select>
+
+    <!-- resultMap 列名和属性名不一致-->
+
+
+</mapper>
