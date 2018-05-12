@@ -12,7 +12,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserMapperTest {
     SqlSession session;
@@ -82,5 +84,18 @@ public class UserMapperTest {
         user.setRegister_date(new Date());
         userMapper.updateUserById(user);
         session.commit();
+    }
+
+    @Test
+    public void testFindUserByIdAndName() {
+        HashMap map = new HashMap();
+        map.put("sex", "1");
+        map.put("username","a");
+        //map.put("password", "1234");
+        List<User> users = userMapper.findUserBySexAndName(map);
+
+        for (User user : users) {
+            System.out.println(user.toString());
+        }
     }
 }

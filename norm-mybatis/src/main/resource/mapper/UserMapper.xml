@@ -40,4 +40,28 @@
         username=#{username},password=#{password},sex=#{sex},nick_name=#{nick_name},register_date=#{register_date}
         where id=#{id};
     </update>
+
+    <!-- sql 片段 -->
+    <sql id="userWhere">
+        <if test="sex!=null">
+            and sex = #{sex}
+        </if>
+        <if test="password != null">
+            and password = #{password}
+        </if>
+
+        <if test="username!=null">
+            and username like '%${username}%'
+        </if>
+    </sql>
+    <select id="findUserBySexAndName" parameterType="hashmap" resultType="User">
+        select * from user
+        <where>
+            <include refid="userWhere"/>
+        </where>
+    </select>
+
+    <!-- resultMap 列名和属性名不一致-->
+
+
 </mapper>

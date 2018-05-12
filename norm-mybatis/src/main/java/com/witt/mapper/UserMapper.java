@@ -2,6 +2,7 @@ package com.witt.mapper;
 
 import com.witt.pojo.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserMapper {
@@ -17,4 +18,6 @@ public interface UserMapper {
     void deleteUserById(Integer integer);
 
     void updateUserById(User user);
+
+    List<User> findUserBySexAndName(HashMap map);
 }
