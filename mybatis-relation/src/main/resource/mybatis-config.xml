@@ -3,6 +3,13 @@
 <configuration>
     <properties resource="db.properties"/>
 
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="lazyLoadTriggerMethods" value="a"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
     <!-- 配置包的别名，这样我们在mapper中定义时，就不需要使用类的全限定名称，只需要使用类名即可 -->
     <typeAliases>
         <package name="com.witt.pojo"/>

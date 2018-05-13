@@ -1,6 +1,5 @@
 package com.witt.pojo;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 public class User {
