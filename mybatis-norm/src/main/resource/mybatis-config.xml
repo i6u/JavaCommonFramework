@@ -34,7 +34,7 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
 
-        <!-- xml 文件和 mapper 接口同名同一位置-->
-        <!--<package name="com.witt.mapper"/>-->
+        <!-- xml 文件和 dao 接口同名同一位置-->
+        <!--<package name="com.witt.dao"/>-->
     </mappers>
 </configuration>

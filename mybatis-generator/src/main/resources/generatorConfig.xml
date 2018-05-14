@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <!--连接驱动jar，maven中为插件配置连接驱动依赖时可以省去-->
+    <!-- <classPathEntry location="D:\apache-maven-3.0.5\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />-->
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--去除注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库连接-->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}" password="${jdbc.password}">
+        </jdbcConnection>
+        <!--java类型处理-->
+        <javaTypeResolver>
+            <!--
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+         -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--实体-->
+        <javaModelGenerator targetPackage="com.witt.mg.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- mapper映射-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!--mapper接口-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.witt.mg.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--<table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  selectByExampleQueryId="false"></table>-->
+        <!-- 指定数据库表 -->
+        <table tableName="items"></table>
+        <table tableName="orders"></table>
+        <table tableName="orderdetail"></table>
+        <table tableName="user"></table>
+
+    </context>
+</generatorConfiguration>
