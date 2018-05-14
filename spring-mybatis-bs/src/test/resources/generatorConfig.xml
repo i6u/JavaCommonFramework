@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!-- JavaBean 实现 序列化 接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value=""/>
+            <property name="replaceString" value=""/>
+        </plugin>
+        <!--&lt;!&ndash; 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ &ndash;&gt;-->
+        <!--<plugin type="./rename.RenameSqlMapperPlugin">-->
+        <!--<property name="searchString" value="Mapper"/>-->
+        <!--<property name="replaceString" value="Dao"/>-->
+        <!--</plugin>-->
+        <!--&lt;!&ndash; 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  &ndash;&gt;-->
+        <!--<plugin type="./rename.RenameJavaMapperPlugin">-->
+        <!--<property name="searchString" value="Mapper$"/>-->
+        <!--<property name="replaceString" value="Dao"/>-->
+        <!--</plugin>-->
+
+        <!--去除注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+
+        <!--数据库连接-->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}" password="${jdbc.password}">
+        </jdbcConnection>
+        <!--java类型处理-->
+        <javaTypeResolver>
+            <!--
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+         -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--实体-->
+        <javaModelGenerator targetPackage="com.witt.bs.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- mapper映射-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <!--mapper接口-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.witt.bs.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+
+        <!-- 指定数据库表 -->
+        <table tableName="items" mapperName="ItemsDao"></table>
+        <table tableName="orders" mapperName="OrdersDao"></table>
+        <table tableName="orderdetail" mapperName="OrderDetailDao"></table>
+        <!--
+            mapperName          接口、mapper xml 文件名
+        -->
+        <table tableName="user" mapperName="UserDao">
+        </table>
+
+    </context>
+</generatorConfiguration>
