@@ -30,6 +30,17 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!--json-->
+    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="serializerFeatures">
+            <list>
+                <value>WriteDateUseDateFormat</value>
+            </list>
+        </property>
+        <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+        <property name="charset" value="UTF-8"/>
+    </bean>
+
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.witt.ssm.web" />
 </beans>

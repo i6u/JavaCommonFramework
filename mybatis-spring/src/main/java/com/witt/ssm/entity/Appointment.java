@@ -16,8 +16,6 @@ public class Appointment {
 	// 多对一的复合属性
 	private Book book;// 图书实体
 	
-	// 省略构造方法，getter和setter方法，toString方法
-
 	@Override
 	public String toString() {
 		return "Appointment{" +
